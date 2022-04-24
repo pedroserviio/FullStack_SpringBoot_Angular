@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.pedroservio.workshopmongo.domain.Categoria;
 import com.pedroservio.workshopmongo.repositories.CategoriaRepository;
+import com.pedroservio.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -22,7 +23,7 @@ public class CategoriaService {
 	public Categoria findById(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
 
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 }
